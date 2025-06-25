@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utilizando IA en Desarrollo</title>
+    <title>Física y sus Ramas con IA</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Google Fonts: Poppins -->
@@ -13,24 +13,15 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
+            background-color: #f3f4f6;
         }
         .hero-section {
             position: relative;
             color: white;
-            padding: 100px 0;
+            padding: 120px 0;
             overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            z-index: -1;
-            animation: gradientShift 8s ease infinite;
+            animation: gradientShift 12s ease infinite;
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -46,30 +37,213 @@
             z-index: -1;
         }
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+        .nav-tabs {
+            border-bottom: none;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .nav-tabs .nav-link {
+            background: #e5e7eb;
+            color: #1e3a8a;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs .nav-link:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .nav-tabs .nav-link.active {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+        .tab-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+            animation: slideIn 0.5s ease-out;
         }
         .feature-card {
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #e5e7eb;
         }
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
         }
         .btn-custom {
-            background-color: #3b82f6;
+            background: #3b82f6;
             border: none;
             padding: 12px 30px;
             font-size: 1.1rem;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
         .btn-custom:hover {
-            background-color: #1e40af;
+            background: #1e40af;
+            transform: translateY(-2px);
+        }
+        .img-fluid {
+            border-radius: 10px;
+            max-height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .img-fluid:hover {
+            transform: scale(1.05);
         }
         footer {
-            background-color: #1e3a8a;
+            background: #1e3a8a;
             color: white;
             padding: 40px 0;
+        }
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 360px;
+            max-height: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(100%);
+            opacity: 0;
+            z-index: 1000;
+        }
+        .chat-container.open {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .chat-header {
+            background: #3b82f6;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-body {
+            max-height: 350px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f9fafb;
+        }
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            animation: fadeIn 0.3s ease;
+        }
+        .chat-message.user {
+            background: #3b82f6;
+            color: white;
+            margin-left: 20%;
+            border-bottom-right-radius: 0;
+        }
+        .chat-message.bot {
+            background: #e5e7eb;
+            color: #1e3a8a;
+            margin-right: 20%;
+            border-bottom-left-radius: 0;
+        }
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+        }
+        .chat-input input {
+            flex: 1;
+            border: none;
+            border-radius: 20px;
+            padding: 10px;
+            margin-right: 10px;
+            background: #f3f4f6;
+            transition: background 0.3s ease;
+        }
+        .chat-input input:focus {
+            background: #e5e7eb;
+            outline: none;
+        }
+        .chat-input button {
+            background: #3b82f6;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        .chat-input button:hover {
+            background: #1e40af;
+        }
+        .chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .chat-toggle:hover {
+            transform: scale(1.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
         }
     </style>
 </head>
@@ -95,43 +269,172 @@
     <section class="hero-section text-center">
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <h1>La IA en el Desarrollo de Software</h1>
-            <p class="lead">Descubre cómo la inteligencia artificial está revolucionando la creación de aplicaciones.</p>
+            <h1>Explorando la Física con IA</h1>
+            <p class="lead">Descubre cómo la inteligencia artificial revoluciona el estudio de las ramas fundamentales de la física.</p>
         </div>
     </section>
 
-    <!-- Sección de Contenido -->
+    <!-- Sección de Pestañas -->
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Beneficios de la IA en el Desarrollo</h2>
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 text-center p-4">
-                        <i class="fas fa-code fa-3x mb-3 text-primary"></i>
-                        <h4>Generación de Código</h4>
-                        <p>La IA puede generar código optimizado y sugerir soluciones en tiempo real, acelerando el desarrollo.</p>
+            <h2 class="text-center mb-5 fade-in">Ramas Principales de la Física</h2>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-tab="astrophysics">Astrofísica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="quantum">Mecánica Cuántica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="classical">Mecánica Clásica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="thermodynamics">Termodinámica</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-tab="electromagnetism">Electromagnetismo</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="astrophysics">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <img src="astrofisica.jpg" class="img-fluid mb-3" alt="Astrofísica">
+                                <h4>Astrofísica</h4>
+                                <p>La astrofísica aplica principios físicos para estudiar fenómenos celestes, desde estrellas hasta galaxias. La IA analiza grandes volúmenes de datos astronómicos, modelando eventos como supernovas o agujeros negros.</p>
+                                <p><strong>Ejemplo:</strong> Redes neuronales que predicen la evolución de galaxias basándose en datos de telescopios como el Hubble.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <h5>Aplicaciones con IA</h5>
+                                <ul>
+                                    <li>Clasificación automática de galaxias.</li>
+                                    <li>Detección de exoplanetas mediante análisis de datos.</li>
+                                    <li>Simulación de colisiones cósmicas.</li>
+                                    <li>Predicción de eventos astrofísicos raros.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 text-center p-4">
-                        <i class="fas fa-bug fa-3x mb-3 text-primary"></i>
-                        <h4>Depuración Automática</h4>
-                        <p>Herramientas de IA identifican y corrigen errores en el código, mejorando la calidad del software.</p>
+                <div class="tab-pane" id="quantum">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <img src="cuantica.jpg" class="img-fluid mb-3" alt="Mecánica Cuántica">
+                                <h4>Mecánica Cuántica</h4>
+                                <p>Estudia el comportamiento de partículas subatómicas, donde las leyes clásicas no aplican. La IA optimiza simulaciones cuánticas, resolviendo ecuaciones complejas como la de Schrödinger.</p>
+                                <p><strong>Ejemplo:</strong> Algoritmos de aprendizaje automático que simulan estados de superposición en sistemas cuánticos.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <h5>Aplicaciones con IA</h5>
+                                <ul>
+                                    <li>Optimización de algoritmos para computación cuántica.</li>
+                                    <li>Análisis de entrelazamiento cuántico.</li>
+                                    <li>Predicción de propiedades de partículas subatómicas.</li>
+                                    <li>Simulación de sistemas cuánticos complejos.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card feature-card border-0 text-center p-4">
-                        <i class="fas fa-rocket fa-3x mb-3 text-primary"></i>
-                        <h4>Prototipado Rápido</h4>
-                        <p>La IA permite crear prototipos funcionales en minutos, agilizando el diseño de aplicaciones.</p>
+                <div class="tab-pane" id="classical">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <img src="clasica.jpg" class="img-fluid mb-3" alt="Mecánica Clásica">
+                                <h4>Mecánica Clásica</h4>
+                                <p>Analiza el movimiento de objetos macroscópicos bajo las leyes de Newton. La IA mejora simulaciones de sistemas dinámicos, como órbitas o estructuras mecánicas.</p>
+                                <p><strong>Ejemplo:</strong> Modelado de trayectorias planetarias con redes neuronales para mayor precisión.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <h5>Aplicaciones con IA</h5>
+                                <ul>
+                                    <li>Simulación de sistemas mecánicos complejos.</li>
+                                    <li>Optimización de diseños en ingeniería mecánica.</li>
+                                    <li>Análisis de estabilidad en estructuras.</li>
+                                    <li>Predicción de trayectorias en sistemas dinámicos.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="thermodynamics">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <img src="termodinamica.jpg" class="img-fluid mb-3" alt="Termodinámica">
+                                <h4>Termodinámica</h4>
+                                <p>Estudia la energía, el calor y la entropía en sistemas físicos. La IA modela procesos térmicos complejos, optimizando sistemas energéticos.</p>
+                                <p><strong>Ejemplo:</strong> Predicción del rendimiento de motores térmicos mediante modelos de IA.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <h5>Aplicaciones con IA</h5>
+                                <ul>
+                                    <li>Optimización de ciclos termodinámicos.</li>
+                                    <li>Análisis de transferencia de calor en materiales.</li>
+                                    <li>Predicción de cambios de fase.</li>
+                                    <li>Modelado de sistemas energéticos sostenibles.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="electromagnetism">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <img src="electro.jpg" class="img-fluid mb-3" alt="Electromagnetismo">
+                                <h4>Electromagnetismo</h4>
+                                <p>Explora los campos eléctricos y magnéticos, regidos por las ecuaciones de Maxwell. La IA optimiza diseños de circuitos y antenas, mejorando la eficiencia electromagnética.</p>
+                                <p><strong>Ejemplo:</strong> Simulación de ondas electromagnéticas para optimizar antenas 5G con IA.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="feature-card fade-in">
+                                <h5>Aplicaciones con IA</h5>
+                                <ul>
+                                    <li>Diseño de circuitos electrónicos optimizados.</li>
+                                    <li>Análisis de propagación de ondas electromagnéticas.</li>
+                                    <li>Simulación de campos magnéticos en motores.</li>
+                                    <li>Optimización de sistemas de comunicación.</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="text-center mt-5">
-                <a href="#" class="btn btn-custom btn-lg text-white">Explora Más</a>
+                <a href="#" class="btn btn-custom">Explora Más Recursos</a>
             </div>
         </div>
     </section>
+
+    <!-- Chat Widget -->
+    <div class="chat-toggle" id="chatToggle">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span>PhysicsBot</span>
+            <i class="fas fa-times" id="chatClose"></i>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">¡Hola! Soy PhysicsBot. Pregúntame sobre astrofísica, mecánica cuántica, clásica, termodinámica o electromagnetismo.</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+            <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="text-center">
@@ -147,8 +450,9 @@
 
     <!-- Bootstrap 5 JS y dependencias -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script para partículas en el fondo -->
+    <!-- Script para partículas, pestañas y chat -->
     <script>
+        // Partículas
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -204,6 +508,69 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = 400;
+        });
+
+        // Tab Functionality
+        document.querySelectorAll('.nav-link').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.nav-link').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+            });
+        });
+
+        // Chat Functionality
+        const chatToggle = document.getElementById('chatToggle');
+        const chatContainer = document.getElementById('chatContainer');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatBody = document.getElementById('chatBody');
+
+        chatToggle.addEventListener('click', () => {
+            chatContainer.classList.toggle('open');
+        });
+
+        chatClose.addEventListener('click', () => {
+            chatContainer.classList.remove('open');
+        });
+
+        const responses = {
+            'astrofísica': 'La astrofísica estudia los fenómenos celestes usando principios físicos. La IA ayuda a analizar datos de telescopios, como la detección de exoplanetas o la modelación de agujeros negros. ¿Quieres saber más sobre un tema específico?',
+            'mecánica cuántica': 'La mecánica cuántica explora el comportamiento de partículas subatómicas. La IA optimiza cálculos complejos, como simulaciones de estados cuánticos. ¿Te interesa algún aspecto en particular, como el entrelazamiento?',
+            'mecánica clásica': 'La mecánica clásica describe el movimiento de objetos macroscópicos bajo las leyes de Newton. La IA mejora simulaciones de trayectorias, como órbitas planetarias. ¿Qué quieres explorar?',
+            'termodinámica': 'La termodinámica analiza energía, calor y entropía. La IA modela sistemas térmicos complejos, como motores o procesos industriales. ¿Tienes alguna pregunta específica?',
+            'electromagnetismo': 'El electromagnetismo estudia campos eléctricos y magnéticos. La IA optimiza diseños de antenas y circuitos, como en tecnologías 5G. ¿Qué aspecto te interesa más?',
+            'default': 'No entendí bien tu pregunta. Por favor, pregunta sobre astrofísica, mecánica cuántica, mecánica clásica, termodinámica o electromagnetismo, y te ayudaré.'
+        };
+
+        function addMessage(text, type) {
+            const message = document.createElement('div');
+            message.classList.add('chat-message', type);
+            message.textContent = text;
+            chatBody.appendChild(message);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        chatSend.addEventListener('click', () => {
+            const question = chatInput.value.trim().toLowerCase();
+            if (!question) return;
+
+            addMessage(question, 'user');
+            let response = responses['default'];
+            for (const key in responses) {
+                if (question.includes(key)) {
+                    response = responses[key];
+                    break;
+                }
+            }
+            setTimeout(() => addMessage(response, 'bot'), 500);
+            chatInput.value = '';
+        });
+
+        chatInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') chatSend.click();
         });
     </script>
 </body>
