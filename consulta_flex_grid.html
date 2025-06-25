@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta Flexbox y CSS Grid</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+        }
+        .hero-section {
+            position: relative;
+            color: white;
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            z-index: -1;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+        .example-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .flex-example, .grid-example {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .flex-example div, .grid-example div {
+            background-color: #3b82f6;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .btn-custom {
+            background-color: #3b82f6;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: #1e40af;
+        }
+        footer {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">CodeMobile</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Regresar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero -->
+    <section class="hero-section text-center">
+        <canvas class="particles" id="particles"></canvas>
+        <div class="container">
+            <h1>Aprende Flexbox y CSS Grid</h1>
+            <p class="lead">Domina los layouts modernos con ejemplos prácticos de Flexbox y CSS Grid.</p>
+        </div>
+    </section>
+
+    <!-- Sección de Contenido -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Flexbox y CSS Grid: Guía Práctica</h2>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="example-card">
+                        <h4>Flexbox</h4>
+                        <p>Flexbox es ideal para layouts unidimensionales (filas o columnas). A continuación, un ejemplo de una fila con elementos centrados:</p>
+                        <div class="flex-example" style="display: flex; justify-content: center; gap: 10px;">
+                            <div>Item 1</div>
+                            <div>Item 2</div>
+                            <div>Item 3</div>
+                        </div>
+                        <pre><code>
+.flex-example {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+                        </code></pre>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="example-card">
+                        <h4>CSS Grid</h4>
+                        <p>CSS Grid es perfecto para layouts bidimensionales. Aquí un ejemplo de una cuadrícula 2x2:</p>
+                        <div class="grid-example" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                            <div>Item 1</div>
+                            <div>Item 2</div>
+                            <div>Item 3</div>
+                            <div>Item 4</div>
+                        </div>
+                        <pre><code>
+.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+                        </code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-2">© 2025 CodeMobile. Todos los derechos reservados.</p>
+            <div class="social-icons">
+                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS y dependencias -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script para partículas en el fondo -->
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = 400;
+
+        let particlesArray = [];
+        const numberOfParticles = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                    particlesArray.push(new Particle());
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = 400;
+        });
+    </script>
+</body>
+</html>
