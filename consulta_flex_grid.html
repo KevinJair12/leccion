@@ -13,24 +13,15 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f5f7fa;
+            background-color: #f3f4f6;
         }
         .hero-section {
             position: relative;
             color: white;
-            padding: 100px 0;
+            padding: 120px 0;
             overflow: hidden;
-        }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
             background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            z-index: -1;
-            animation: gradientShift 8s ease infinite;
+            animation: gradientShift 12s ease infinite;
         }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
@@ -46,41 +37,131 @@
             z-index: -1;
         }
         .hero-section h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
         }
         .example-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
         }
-        .flex-example, .grid-example {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-top: 10px;
+        .example-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .code-typing {
+            display: inline-block;
+            width: 0;
+            overflow: hidden;
+            animation: typing 3s steps(40) forwards;
+        }
+        .code-cursor::after {
+            content: '|';
+            color: #3b82f6;
+            animation: blink 0.7s infinite;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .preview-section {
+            min-height: 120px;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9fafb;
+            margin-top: 15px;
+            transition: all 0.5s ease;
         }
         .flex-example div, .grid-example div {
-            background-color: #3b82f6;
+            background: #3b82f6;
             color: white;
             padding: 10px;
             text-align: center;
-            border-radius: 5px;
+            border-radius: 6px;
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
         }
-        .btn-custom {
-            background-color: #3b82f6;
+        .flex-example div:hover, .grid-example div:hover {
+            transform: scale(1.05);
+        }
+        .icon-section {
+            color: #3b82f6;
+            margin-right: 10px;
+        }
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .pagination-btn {
+            background: #3b82f6;
+            color: white;
             border: none;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
-        .btn-custom:hover {
-            background-color: #1e40af;
+        .pagination-btn:hover {
+            background: #1e40af;
+            transform: scale(1.1);
+        }
+        .pagination-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: scale(1);
         }
         footer {
-            background-color: #1e3a8a;
+            background: #1e3a8a;
             color: white;
             padding: 40px 0;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        .property-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -106,51 +187,170 @@
     <section class="hero-section text-center">
         <canvas class="particles" id="particles"></canvas>
         <div class="container">
-            <h1>Aprende Flexbox y CSS Grid</h1>
-            <p class="lead">Domina los layouts modernos con ejemplos prácticos de Flexbox y CSS Grid.</p>
+            <h1>Domina Flexbox y CSS Grid</h1>
+            <p class="lead">Explora cada propiedad con ejemplos animados en tiempo real.</p>
         </div>
     </section>
 
     <!-- Sección de Contenido -->
     <section class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5">Flexbox y CSS Grid: Guía Práctica</h2>
+            <h2 class="text-center mb-5 fade-in">Guía Interactiva de Flexbox y CSS Grid</h2>
             <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="example-card">
-                        <h4>Flexbox</h4>
-                        <p>Flexbox es ideal para layouts unidimensionales (filas o columnas). A continuación, un ejemplo de una fila con elementos centrados:</p>
-                        <div class="flex-example" style="display: flex; justify-content: center; gap: 10px;">
-                            <div>Item 1</div>
-                            <div>Item 2</div>
-                            <div>Item 3</div>
+                <!-- Flexbox -->
+                <div class="col-lg-6">
+                    <div class="example-card fade-in">
+                        <h4><i class="fas fa-align-left icon-section"></i>Flexbox: Layouts Unidimensionales</h4>
+                        <p>Flexbox organiza elementos en filas o columnas. Navega por cada propiedad para ver su efecto.</p>
+                        <!-- display: flex -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>display: flex</h5>
+                            <div class="code-block">
+                                <pre id="flexDisplayCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="flexDisplayPreview">
+                                <div class="flex-example" id="flexDisplayExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="flexDisplay" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="flexDisplay" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
                         </div>
-                        <pre><code>
-.flex-example {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-                        </code></pre>
+                        <!-- justify-content -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>justify-content</h5>
+                            <div class="code-block">
+                                <pre id="flexJustifyCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="flexJustifyPreview">
+                                <div class="flex-example" id="flexJustifyExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                    <div>Item 3</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="flexJustify" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="flexJustify" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- align-items -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>align-items</h5>
+                            <div class="code-block">
+                                <pre id="flexAlignCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="flexAlignPreview">
+                                <div class="flex-example" id="flexAlignExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="flexAlign" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="flexAlign" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- flex-wrap -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>flex-wrap</h5>
+                            <div class="code-block">
+                                <pre id="flexWrapCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="flexWrapPreview">
+                                <div class="flex-example" id="flexWrapExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                    <div>Item 3</div>
+                                    <div>Item 4</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="flexWrap" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="flexWrap" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="example-card">
-                        <h4>CSS Grid</h4>
-                        <p>CSS Grid es perfecto para layouts bidimensionales. Aquí un ejemplo de una cuadrícula 2x2:</p>
-                        <div class="grid-example" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-                            <div>Item 1</div>
-                            <div>Item 2</div>
-                            <div>Item 3</div>
-                            <div>Item 4</div>
+                <!-- CSS Grid -->
+                <div class="col-lg-6">
+                    <div class="example-card fade-in">
+                        <h4><i class="fas fa-th icon-section"></i>CSS Grid: Layouts Bidimensionales</h4>
+                        <p>CSS Grid crea diseños en filas y columnas. Explora cada propiedad con ejemplos interactivos.</p>
+                        <!-- display: grid -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>display: grid</h5>
+                            <div class="code-block">
+                                <pre id="gridDisplayCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="gridDisplayPreview">
+                                <div class="grid-example" id="gridDisplayExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="gridDisplay" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="gridDisplay" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
                         </div>
-                        <pre><code>
-.grid-example {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-                        </code></pre>
+                        <!-- grid-template-columns -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>grid-template-columns</h5>
+                            <div class="code-block">
+                                <pre id="gridColumnsCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="gridColumnsPreview">
+                                <div class="grid-example" id="gridColumnsExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                    <div>Item 3</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="gridColumns" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="gridColumns" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- grid-gap -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>grid-gap</h5>
+                            <div class="code-block">
+                                <pre id="gridGapCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="gridGapPreview">
+                                <div class="grid-example" id="gridGapExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                    <div>Item 3</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="gridGap" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="gridGap" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                        <!-- grid-auto-rows -->
+                        <div class="property-section slide-in">
+                            <h5><i class="fas fa-check-circle icon-section"></i>grid-auto-rows</h5>
+                            <div class="code-block">
+                                <pre id="gridRowsCode" class="code-typing code-cursor"></pre>
+                            </div>
+                            <div class="preview-section" id="gridRowsPreview">
+                                <div class="grid-example" id="gridRowsExample">
+                                    <div>Item 1</div>
+                                    <div>Item 2</div>
+                                    <div>Item 3</div>
+                                </div>
+                            </div>
+                            <div class="pagination-controls">
+                                <button class="pagination-btn" data-property="gridRows" data-dir="prev"><i class="fas fa-chevron-left"></i></button>
+                                <button class="pagination-btn" data-property="gridRows" data-dir="next"><i class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -171,8 +371,9 @@
 
     <!-- Bootstrap 5 JS y dependencias -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script para partículas en el fondo -->
+    <!-- Script para partículas y animaciones -->
     <script>
+        // Partículas
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
@@ -228,6 +429,238 @@
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = 400;
+        });
+
+        // Ejemplos por propiedad
+        const examples = {
+            flexDisplay: [
+                {
+                    code: `.flex-example {
+    display: flex;
+}`,
+                    style: 'display: flex;'
+                },
+                {
+                    code: `.flex-example {
+    display: block;
+}`,
+                    style: 'display: block;'
+                }
+            ],
+            flexJustify: [
+                {
+                    code: `.flex-example {
+    display: flex;
+    justify-content: space-between;
+}`,
+                    style: 'display: flex; justify-content: space-between;'
+                },
+                {
+                    code: `.flex-example {
+    display: flex;
+    justify-content: center;
+}`,
+                    style: 'display: flex; justify-content: center;'
+                },
+                {
+                    code: `.flex-example {
+    display: flex;
+    justify-content: flex-start;
+}`,
+                    style: 'display: flex; justify-content: flex-start;'
+                }
+            ],
+            flexAlign: [
+                {
+                    code: `.flex-example {
+    display: flex;
+    align-items: center;
+    height: 100px;
+}`,
+                    style: 'display: flex; align-items: center; height: 100px;'
+                },
+                {
+                    code: `.flex-example {
+    display: flex;
+    align-items: flex-start;
+    height: 100px;
+}`,
+                    style: 'display: flex; align-items: flex-start; height: 100px;'
+                },
+                {
+                    code: `.flex-example {
+    display: flex;
+    align-items: flex-end;
+    height: 100px;
+}`,
+                    style: 'display: flex; align-items: flex-end; height: 100px;'
+                }
+            ],
+            flexWrap: [
+                {
+                    code: `.flex-example {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}`,
+                    style: 'display: flex; flex-wrap: wrap; gap: 10px;'
+                },
+                {
+                    code: `.flex-example {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+}`,
+                    style: 'display: flex; flex-wrap: nowrap; gap: 10px;'
+                }
+            ],
+            gridDisplay: [
+                {
+                    code: `.grid-example {
+    display: grid;
+}`,
+                    style: 'display: grid;'
+                },
+                {
+                    code: `.grid-example {
+    display: block;
+}`,
+                    style: 'display: block;'
+                }
+            ],
+            gridColumns: [
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(3, 1fr);'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}`,
+                    style: 'display: grid; grid-template-columns: 1fr 2fr;'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: 100px 100px;
+}`,
+                    style: 'display: grid; grid-template-columns: 100px 100px;'
+                }
+            ],
+            gridGap: [
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px;'
+                }
+            ],
+            gridRows: [
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 80px;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 80px;'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 120px;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: 120px;'
+                },
+                {
+                    code: `.grid-example {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+}`,
+                    style: 'display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto;'
+                }
+            ]
+        };
+
+        // Estado de los índices
+        const indices = {
+            flexDisplay: 0,
+            flexJustify: 0,
+            flexAlign: 0,
+            flexWrap: 0,
+            gridDisplay: 0,
+            gridColumns: 0,
+            gridGap: 0,
+            gridRows: 0
+        };
+
+        // Actualizar ejemplo
+        function updateExample(property) {
+            const codeElement = document.getElementById(`${property}Code`);
+            const previewElement = document.getElementById(`${property}Example`);
+            const example = examples[property][indices[property]];
+            
+            codeElement.textContent = example.code;
+            codeElement.classList.remove('code-typing');
+            void codeElement.offsetWidth; // Forzar reflow para reiniciar animación
+            codeElement.classList.add('code-typing');
+            
+            previewElement.style.cssText = example.style;
+        }
+
+        // Manejar navegación
+        document.querySelectorAll('.pagination-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const property = button.dataset.property;
+                const direction = button.dataset.dir;
+                const maxIndex = examples[property].length - 1;
+
+                if (direction === 'prev') {
+                    indices[property] = indices[property] > 0 ? indices[property] - 1 : maxIndex;
+                } else {
+                    indices[property] = indices[property] < maxIndex ? indices[property] + 1 : 0;
+                }
+
+                updateExample(property);
+
+                // Actualizar estado de botones
+                const prevBtn = button.parentElement.querySelector('[data-dir="prev"]');
+                const nextBtn = button.parentElement.querySelector('[data-dir="next"]');
+                prevBtn.disabled = indices[property] === 0;
+                nextBtn.disabled = indices[property] === maxIndex;
+            });
+        });
+
+        // Inicializar ejemplos
+        Object.keys(examples).forEach(property => {
+            updateExample(property);
+            const prevBtn = document.querySelector(`[data-property="${property}"][data-dir="prev"]`);
+            const nextBtn = document.querySelector(`[data-property="${property}"][data-dir="next"]`);
+            prevBtn.disabled = true;
+            nextBtn.disabled = examples[property].length === 1;
         });
     </script>
 </body>
